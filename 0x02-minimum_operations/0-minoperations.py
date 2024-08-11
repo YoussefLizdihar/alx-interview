@@ -6,6 +6,7 @@ exactly n characters using the most optimal series of
 Copy All and Paste operations.
 """
 
+
 def minOperations(n):
     if n <= 1:
         return 0
@@ -20,4 +21,3 @@ def minOperations(n):
         factor += 1
 
     return operations
-
