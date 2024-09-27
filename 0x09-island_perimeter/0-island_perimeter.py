@@ -2,7 +2,8 @@
 """
 0-island_perimeter.py
 
-This module provides a function to calculate the perimeter of an island in a grid.
+This module provides a function to calculate
+the perimeter of an island in a grid.
 """
 
 
