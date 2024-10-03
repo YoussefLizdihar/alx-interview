@@ -3,55 +3,38 @@
 
 
 def isWinner(x, nums):
-    # define the winner in the prime game
-    mariaWinsCount = 0
-    benWinsCount = 0
+    # Function to determine the winner of the most rounds of the prime game
 
-    for num in nums:
-        roundsSet = list(range(1, num + 1))
-        primesSet = primes_in_range(1, num)
+    max_n = max(nums)
 
-        if not primesSet:
-            benWinsCount += 1
-            continue
+    # Step 1: Precompute primes up to the maximum number using the Sieve of Eratosthenes
+    primes = [True] * (max_n + 1)
+    primes[0] = primes[1] = False
 
-        isMariaTurns = True
+    for i in range(2, int(max_n ** 0.5) + 1):
+        if primes[i]:
+            for multiple in range(i * i, max_n + 1, i):
+                primes[multiple] = False
 
-        while(True):
-            if not primesSet:
-                if isMariaTurns:
-                    benWinsCount += 1
-                else:
-                    mariaWinsCount += 1
-                break
+    # Step 2: Precompute number of prime removals possible for each number up to max_n
+    prime_count = [0] * (max_n + 1)
+    for i in range(1, max_n + 1):
+        prime_count[i] = prime_count[i - 1] + (1 if primes[i] else 0)
 
-            smallestPrime = primesSet.pop(0)
-            roundsSet.remove(smallestPrime)
+    # Step 3: Simulate each game round and determine the winner
+    maria_wins = 0
+    ben_wins = 0
 
-            roundsSet = [x for x in roundsSet if x % smallestPrime != 0]
+    for n in nums:
+        if prime_count[n] % 2 == 0:
+            ben_wins += 1
+        else:
+            maria_wins += 1
 
-            isMariaTurns = not isMariaTurns
-
-    if mariaWinsCount > benWinsCount:
-        return "Winner: Maria"
-
-    if mariaWinsCount < benWinsCount:
-        return "Winner: Ben"
-
-    return None
-
-
-def is_prime(n):
-    # return a True value if n is prime, otherwise False.
-    if n < 2:
-        return False
-    for i in range(2, int(n ** 0.5) + 1):
-        if n % i == 0:
-            return False
-    return True
-
-
-def primes_in_range(start, end):
-    # returns the prime numbers (inclusive).
-    primes = [n for n in range(start, end+1) if is_prime(n)]
-    return primes
+    # Step 4: Determine the overall winner
+    if maria_wins > ben_wins:
+        return "Maria"
+    elif ben_wins > maria_wins:
+        return "Ben"
+    else:
+        return None
