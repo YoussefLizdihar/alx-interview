@@ -42,7 +42,7 @@ def isWinner(x, nums):
 
 
 def is_prime(n):
-    #return a True value if n is prime, otherwise False.
+    # return a True value if n is prime, otherwise False.
     if n < 2:
         return False
     for i in range(2, int(n ** 0.5) + 1):
@@ -52,6 +52,6 @@ def is_prime(n):
 
 
 def primes_in_range(start, end):
-    #returns the prime numbers (inclusive).
+    # returns the prime numbers (inclusive).
     primes = [n for n in range(start, end+1) if is_prime(n)]
     return primes
