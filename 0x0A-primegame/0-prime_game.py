@@ -8,8 +8,9 @@ def isWinner(x, nums):
     """
     Determines the winner of the Prime Game over multiple rounds.
     Returns:
-        str or None: The name of the player who won the most rounds ("Maria" or "Ben"),
-                     or None if there is no clear winner.
+        str or None: The name of the player who won
+        the most rounds ("Maria" or "Ben"),
+        or None if there is no clear winner.
     """
     if not isinstance(x, int) or x < 1:
         return None
